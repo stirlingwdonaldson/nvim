@@ -22,7 +22,6 @@ vim.pack.add({
 	{ src = "https://github.com/vimpostor/vim-tpipeline.git" },
 	{ src = "https://github.com/christoomey/vim-tmux-navigator.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim" },
-	{ src = "https://github.com/kdheepak/lazygit.nvim" },
 })
 
 
@@ -94,28 +93,34 @@ require("blink.cmp").setup({
 })
 
 local telescope = require("telescope")
-telescope.setup({
-	defaults = {
-		preview = { treesitter = false },
-		color_devicons = true,
-		sorting_strategy = "ascending",
-		borderchars = {
-			"─", -- top
-			"│", -- right
-			"─", -- bottom
-			"│", -- left
-			"┌", -- top-left
-			"┐", -- top-right
-			"┘", -- bottom-right
-			"└", -- bottom-left
-		},
-		path_displays = { "smart" },
-		layout_config = {
-			height = 100,
-			width = 400,
-			prompt_position = "top",
-			preview_ccutfoff = 40,
-		}
-	}
+
+require('telescope').setup({
+  defaults = {
+    layout_strategy = 'horizontal',
+    layout_config = {
+      horizontal = {
+        width = 0.9,
+        height = 0.9,
+        preview_cutoff = 120,
+        prompt_position = 'top',
+      },
+      vertical = {
+        width = 0.9,
+        height = 0.9,
+        preview_cutoff = 40,
+        prompt_position = 'top',
+      },
+      cursor = {
+        width = 0.8,
+        height = 0.4,
+        preview_cutoff = 40,
+      },
+      center = {
+        width = 0.8,
+        height = 0.4,
+        preview_cutoff = 40,
+      },
+    },
+  },
 })
 telescope.load_extension("ui-select")
