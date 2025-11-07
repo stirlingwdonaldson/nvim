@@ -21,15 +21,22 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim.git" },
 	{ src = "https://github.com/vimpostor/vim-tpipeline.git" },
 	{ src = "https://github.com/christoomey/vim-tmux-navigator.git" },
+	{ src = "https://github.com/kdheepak/lazygit.nvim" },
+	{ src = "https://github.com/kdheepak/lazygit.nvim" },
 })
 
-require("actions-preview").setup {
+
+-- LazyGit setup
+vim.g.lazygit_floating_window_winblend = 0          -- no transparency
+vim.g.lazygit_floating_window_scaling_factor = 0.9  -- size scaling
+vim.g.lazygit_floating_window_border_chars = { '╭','─','╮','│','╯','─','╰','│' }
+vim.g.lazygit_floating_window_use_plenary = 0
+vim.g.lazygit_use_neovim_remote = 1
+
+require("actions-preview").setup({
 	backend = { "telescope" },
-	telescope = vim.tbl_extend(
-		"force",
-		require("telescope.themes").get_dropdown(), {}
-	)
-}
+	telescope = vim.tbl_extend("force", require("telescope.themes").get_dropdown(), {}),
+})
 require("lualine").setup({
 	options = {
 		theme = "tomorrow_night",
@@ -48,8 +55,8 @@ require("lualine").setup({
 require("barbar").setup({
 	animation = false,
 	icons = {
-    separator = {left = '', right = ''},
-	}
+		separator = { left = "", right = "" },
+	},
 })
 require("oil").setup({
 	lsp_file_methods = {
@@ -58,8 +65,8 @@ require("oil").setup({
 	},
 	view_options = {
 		show_hidden = true,
-	
-	}})
+	},
+})
 require("mini.pairs").setup()
 require("mini.starter").setup()
 require("trouble").setup()
@@ -107,7 +114,7 @@ telescope.setup({
 			height = 100,
 			width = 400,
 			prompt_position = "top",
-			preview_cutoff = 40,
+			preview_ccutfoff = 40,
 		}
 	}
 })

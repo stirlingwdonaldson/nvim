@@ -44,3 +44,6 @@ map('n', '<leader>xX', '<Cmd>Trouble diagnostics toggle filter.buf=0<CR>', opts)
 
 map({'n', 'v', 'x'}, ';', ':', opts)
 map({'n', 'v', 'x'}, ':', ';', opts)
+
+
+map('n', '<leader>lg', ':LazyGit<CR>', opts)
