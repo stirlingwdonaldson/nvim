@@ -1,0 +1,31 @@
+{
+  "plugins": {
+    "actions-preview.nvim": [],
+    "barbar.nvim": [],
+    "blink.cmp": [],
+    "indent-blankline.nvim": [],
+    "lazydev.nvim": [],
+    "lazygit.nvim": [],
+    "lualine.nvim": [],
+    "mason-lspconfig.nvim": [],
+    "mason.nvim": [],
+    "mini.bufremove": [],
+    "mini.pairs": [],
+    "mini.starter": [],
+    "nightfox.nvim": [],
+    "nvim-lspconfig": [],
+    "nvim-web-devicons": [],
+    "oil.nvim": [],
+    "plenary.nvim": [],
+    "telescope-ui-select.nvim": [],
+    "telescope.nvim": [],
+    "tiny-inline-diagnostic.nvim": [],
+    "trouble.nvim": [],
+    "typst-preview.nvim": {
+      "rev": "64469f8",
+      "src": "https://github.com/chomosuke/typst-preview.nvim"
+    },
+    "vim-tmux-navigator": [],
+    "vim-tpipeline": []
+  }
+}
