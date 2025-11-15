@@ -1,3 +1,3 @@
-require("harrisonablack.plugins")
-require("harrisonablack.settings")
-require("harrisonablack.keymaps")
+require("stirlingdonaldson.plugins")
+require("stirlingdonaldson.settings")
+require("stilingdonaldson.keymaps")
