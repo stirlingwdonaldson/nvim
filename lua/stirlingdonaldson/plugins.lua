@@ -22,13 +22,14 @@ vim.pack.add({
 	{ src = "https://github.com/vimpostor/vim-tpipeline.git" },
 	{ src = "https://github.com/christoomey/vim-tmux-navigator.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim" },
+	{ src = "https://github.com/chomosuke/typst-preview.nvim"},
 })
 
 
 -- LazyGit setup
-vim.g.lazygit_floating_window_winblend = 0          -- no transparency
-vim.g.lazygit_floating_window_scaling_factor = 0.9  -- size scaling
-vim.g.lazygit_floating_window_border_chars = { '╭','─','╮','│','╯','─','╰','│' }
+vim.g.lazygit_floating_window_winblend = 0         -- no transparency
+vim.g.lazygit_floating_window_scaling_factor = 0.9 -- size scaling
+vim.g.lazygit_floating_window_border_chars = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 vim.g.lazygit_floating_window_use_plenary = 0
 vim.g.lazygit_use_neovim_remote = 1
 
@@ -95,32 +96,55 @@ require("blink.cmp").setup({
 local telescope = require("telescope")
 
 require('telescope').setup({
-  defaults = {
-    layout_strategy = 'horizontal',
-    layout_config = {
-      horizontal = {
-        width = 0.9,
-        height = 0.9,
-        preview_cutoff = 120,
-        prompt_position = 'top',
-      },
-      vertical = {
-        width = 0.9,
-        height = 0.9,
-        preview_cutoff = 40,
-        prompt_position = 'top',
-      },
-      cursor = {
-        width = 0.8,
-        height = 0.4,
-        preview_cutoff = 40,
-      },
-      center = {
-        width = 0.8,
-        height = 0.4,
-        preview_cutoff = 40,
-      },
-    },
-  },
+	defaults = {
+		layout_strategy = 'horizontal',
+		layout_config = {
+			horizontal = {
+				width = 0.9,
+				height = 0.9,
+				preview_cutoff = 120,
+				prompt_position = 'top',
+			},
+			vertical = {
+				width = 0.9,
+				height = 0.9,
+				preview_cutoff = 40,
+				prompt_position = 'top',
+			},
+			cursor = {
+				width = 0.8,
+				height = 0.4,
+				preview_cutoff = 40,
+			},
+			center = {
+				width = 0.8,
+				height = 0.4,
+				preview_cutoff = 40,
+			},
+		},
+	},
 })
 telescope.load_extension("ui-select")
+
+require("typst-preview").setup {
+	debug = false,
+	open_cmd = nil,
+	port = 0,
+	invert_colors = "never",
+	follow_cursor = true,
+	dependencies_bin = {
+		["tinymist"] = nil,
+		["websocat"] = nil,
+	},
+	extra_args = nil,
+	get_root = function(path_of_main_file)
+		local root = os.getenv("TYPST_ROOT")
+		if root then
+			return root
+		end
+		return vim.fn.fnamemodify(path_of_main_file, ":p:h")
+	end,
+	get_main_file = function(path_of_buffer)
+		return path_of_buffer
+	end,
+}
