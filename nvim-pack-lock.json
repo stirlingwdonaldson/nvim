@@ -1,0 +1,64 @@
+{
+  "plugins": {
+    "blink": {
+      "rev": "28badce",
+      "src": "https://github.com/saghen/blink.cmp.git"
+    },
+    "blink.cmp": {
+      "rev": "28badce",
+      "src": "https://github.com/saghen/blink.cmp.git"
+    },
+    "coq_nvim": {
+      "rev": "d939a34c",
+      "src": "https://github.com/ms-jpq/coq_nvim.git"
+    },
+    "indent-blankline.nvim": {
+      "rev": "d28a3f7",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
+    },
+    "lazygit.nvim": {
+      "rev": "a04ad0d",
+      "src": "https://github.com/kdheepak/lazygit.nvim.git"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "a324581",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason.nvim": {
+      "rev": "44d1e90",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "moonfly": {
+      "rev": "d11b3d0",
+      "src": "https://github.com/bluz71/vim-moonfly-colors.git"
+    },
+    "nvim-web-devicons": {
+      "rev": "737cf6c",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons.git"
+    },
+    "oil.nvim": {
+      "rev": "0fcc838",
+      "src": "https://github.com/stevearc/oil.nvim.git"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim.git"
+    },
+    "ranger.nvim": {
+      "rev": "fd2cc99",
+      "src": "https://github.com/kelly-lin/ranger.nvim.git"
+    },
+    "telescope.nvim": {
+      "rev": "5255aa2",
+      "src": "https://github.com/nvim-telescope/telescope.nvim.git"
+    },
+    "vim-moonfly-colors": {
+      "rev": "d11b3d0",
+      "src": "https://github.com/bluz71/vim-moonfly-colors.git"
+    },
+    "which-key.nvim": {
+      "rev": "3aab214",
+      "src": "https://github.com/folke/which-key.nvim.git"
+    }
+  }
+}
