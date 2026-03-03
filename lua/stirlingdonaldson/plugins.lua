@@ -7,6 +7,8 @@ vim.pack.add({
 	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 
+	{ src = "https://github.com/folke/trouble.nvim.git" },
+
 	-- Completion and search
 	{ src = "https://github.com/nvim-lua/plenary.nvim.git" },
 	{ src = "https://github.com/saghen/blink.cmp.git" },
@@ -65,8 +67,15 @@ require("mason-tool-installer").setup({
 	run_on_start = true,
 })
 
+require("trouble").setup()
+
 -- Formatting
 local conform = require("conform")
+
+local function essential_notify(message)
+	vim.notify(message, vim.log.levels.INFO)
+end
+
 conform.setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -90,10 +99,27 @@ vim.api.nvim_create_user_command("Format", function()
 		async = false,
 		lsp_fallback = true,
 	})
+	essential_notify("Formatted")
 end, { desc = "Format current buffer" })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+	callback = function()
+		essential_notify("Saved")
+	end,
+})
 
 -- UI helpers
 require("ibl").setup()
+require("notify").setup({
+	render = "minimal",
+	timeout = 900,
+	background_colour = "#0D1117",
+})
+
+vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#3FB950" })
+vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = "#3FB950" })
+vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = "#3FB950" })
+
 require("noice").setup({
 	lsp = {
 		override = {
@@ -102,13 +128,36 @@ require("noice").setup({
 			["cmp.entry.get_documentation"] = true,
 		},
 	},
+	routes = {
+		{
+			filter = {
+				event = "notify",
+				kind = { "warn", "error" },
+			},
+			view = "notify",
+		},
+		{
+			filter = {
+				event = "notify",
+				any = {
+					{ find = "^Saved$" },
+					{ find = "^Formatted$" },
+				},
+			},
+			view = "notify",
+		},
+		{
+			filter = { event = "notify" },
+			opts = { skip = true },
+		},
+	},
 })
 
 require("which-key").setup({
 	triggers = {
-		{ "<leader>", mode = "n"},
-		{ "<localleader>", mode = "n"},
-	}
+		{ "<leader>", mode = "n" },
+		{ "<localleader>", mode = "n" },
+	},
 })
 
 -- Completion
