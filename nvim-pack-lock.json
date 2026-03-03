@@ -8,9 +8,25 @@
       "rev": "28badce",
       "src": "https://github.com/saghen/blink.cmp.git"
     },
+    "conform.nvim": {
+      "rev": "40dcec5555f960b0a04340d76eabdf4efe78599d",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "coq_nvim": {
       "rev": "d939a34c",
       "src": "https://github.com/ms-jpq/coq_nvim.git"
+    },
+    "galaxyline.nvim": {
+      "rev": "4d4f5fc",
+      "src": "https://github.com/NTBBloodbath/galaxyline.nvim.git"
+    },
+    "github-nvim-theme": {
+      "rev": "c106c94",
+      "src": "https://github.com/projekt0n/github-nvim-theme.git"
+    },
+    "hml.nvim": {
+      "rev": "54b4d0a",
+      "src": "https://github.com/mawkler/hml.nvim.git"
     },
     "indent-blankline.nvim": {
       "rev": "d28a3f7",
@@ -20,17 +36,45 @@
       "rev": "a04ad0d",
       "src": "https://github.com/kdheepak/lazygit.nvim.git"
     },
+    "lualine.nvim": {
+      "rev": "47f91c4",
+      "src": "https://github.com/nvim-lualine/lualine.nvim.git"
+    },
     "mason-lspconfig.nvim": {
       "rev": "a324581",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason-tool-installer.nvim": {
+      "rev": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc",
+      "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
     },
     "mason.nvim": {
       "rev": "44d1e90",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "midnight.nvim": {
+      "rev": "fe062a6",
+      "src": "https://github.com/dasupradyumna/midnight.nvim.git"
+    },
     "moonfly": {
       "rev": "d11b3d0",
       "src": "https://github.com/bluz71/vim-moonfly-colors.git"
+    },
+    "noice.nvim": {
+      "rev": "7bfd942",
+      "src": "https://github.com/folke/noice.nvim.git"
+    },
+    "nui.nvim": {
+      "rev": "de74099",
+      "src": "https://github.com/MunifTanjim/nui.nvim.git"
+    },
+    "nvim-lspconfig": {
+      "rev": "ead0f5f342d8d323441e7d4b88f0fc436a81ad5f",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-notify": {
+      "rev": "8701bec",
+      "src": "https://github.com/rcarriga/nvim-notify.git"
     },
     "nvim-web-devicons": {
       "rev": "737cf6c",
@@ -43,6 +87,10 @@
     "plenary.nvim": {
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim.git"
+    },
+    "precognition.nvim": {
+      "rev": "06e4bfa",
+      "src": "https://github.com/tris203/precognition.nvim.git"
     },
     "ranger.nvim": {
       "rev": "fd2cc99",
