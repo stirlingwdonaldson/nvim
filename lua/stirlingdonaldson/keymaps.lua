@@ -14,7 +14,13 @@ map("n", "<leader>e", "<CMD>Oil<CR>", opts)
 map("n", "<leader>f", "<CMD>Telescope find_files<CR>", opts)
 
 -- LSP and formatting
-map("n", "<leader>lf", "<CMD>Format<CR>", opts)
+map("n", "<leader>lf", function()
+	require("conform").format({
+		async = false,
+		lsp_fallback = true,
+	})
+	vim.notify("Formatted", vim.log.levels.INFO)
+end, opts)
 
 map("n", "<leader>xx", "<CMD>Trouble diagnostics toggle<CR>",opts)
 map("n", "<leader>xX", "<CMD>Trouble diagnostics toggle filter.buf=0<CR>",opts)

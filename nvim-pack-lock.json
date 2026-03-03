@@ -100,6 +100,10 @@
       "rev": "5255aa2",
       "src": "https://github.com/nvim-telescope/telescope.nvim.git"
     },
+    "trouble.nvim": {
+      "rev": "bd67efe",
+      "src": "https://github.com/folke/trouble.nvim.git"
+    },
     "vim-moonfly-colors": {
       "rev": "d11b3d0",
       "src": "https://github.com/bluz71/vim-moonfly-colors.git"

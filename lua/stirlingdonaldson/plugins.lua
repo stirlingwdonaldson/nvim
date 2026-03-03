@@ -72,10 +72,6 @@ require("trouble").setup()
 -- Formatting
 local conform = require("conform")
 
-local function essential_notify(message)
-	vim.notify(message, vim.log.levels.INFO)
-end
-
 conform.setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -94,13 +90,11 @@ conform.setup({
 	},
 })
 
-vim.api.nvim_create_user_command("Format", function()
-	conform.format({
-		async = false,
-		lsp_fallback = true,
-	})
-	essential_notify("Formatted")
-end, { desc = "Format current buffer" })
+
+local function essential_notify(message)
+	vim.notify(message, vim.log.levels.INFO)
+end
+
 
 vim.api.nvim_create_autocmd("BufWritePost", {
 	callback = function()
