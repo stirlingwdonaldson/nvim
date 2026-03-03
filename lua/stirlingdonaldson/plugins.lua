@@ -32,7 +32,9 @@ vim.pack.add({
 	{ src = "https://github.com/projekt0n/github-nvim-theme.git" },
 })
 
--- LSP
+
+
+
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
@@ -102,8 +104,24 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	end,
 })
 
--- UI helpers
-require("ibl").setup()
+
+
+-- ██  ██ ██████    ██  ██ ████ ██     █████▄ ████ █████▄ ▄█████
+-- ██  ██   ██      ██████ ██▀▀ ██     ██▄▄█▀ ██▀▀ ██▄▄█▀ ▀▀▀▄▄▄
+-- ▀████▀ ██████    ██  ██ ████ ██████ ██     ████ ██ ▀██ █████▀
+
+local hooks = require("ibl.hooks")
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	-- Pick a mid-tone color that looks ~50% visible on your theme
+	vim.api.nvim_set_hl(0, "IblIndent", { fg = "#3A4050", nocombine = true })
+end)
+require("ibl").setup({
+	indent = {
+		highlight = "IblIndent",
+		char = "│",
+	},
+})
+
 require("notify").setup({
 	render = "minimal",
 	timeout = 900,

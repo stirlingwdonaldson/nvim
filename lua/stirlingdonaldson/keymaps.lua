@@ -1,7 +1,23 @@
 vim.g.mapleader = " "
 
+-- ████
+-- █▀▀▀
+-- ████
+
+-- █▀▀█
+-- ████
+-- █  █
+
+-- ████
+-- █▀▀▀
+-- ██▀▀
+
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
+local function comment_title(size)
+	package.loaded["stirlingdonaldson.comment_titles"] = nil
+	require("stirlingdonaldson.comment_titles").to_title(size)
+end
 
 -- General
 map("n", "<leader>w", ":w<CR>", opts)
@@ -36,3 +52,14 @@ map("n", "<leader>lg", "<CMD>LazyGit<CR>", opts)
 -- Command-line convenience
 map({ "n", "v", "x" }, ";", ":", opts)
 map({ "n" }, "<leader><leader>", ":")
+
+-- Comment titles
+map("n", "<leader>mt", function()
+	comment_title("small")
+end, opts)
+map("n", "<leader>mts", function()
+	comment_title("small")
+end, opts)
+map("n", "<leader>mtl", function()
+	comment_title("large")
+end, opts)
