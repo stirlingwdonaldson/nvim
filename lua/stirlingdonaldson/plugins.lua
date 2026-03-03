@@ -104,6 +104,13 @@ require("noice").setup({
 	},
 })
 
+require("which-key").setup({
+	triggers = {
+		{ "<leader>", mode = "n"},
+		{ "<localleader>", mode = "n"},
+	}
+})
+
 -- Completion
 require("blink.cmp").setup({
 	keymap = {
