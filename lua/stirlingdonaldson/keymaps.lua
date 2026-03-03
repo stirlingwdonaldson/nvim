@@ -16,9 +16,12 @@ map("n", "<leader>f", "<CMD>Telescope find_files<CR>", opts)
 -- LSP and formatting
 map("n", "<leader>lf", "<CMD>Format<CR>", opts)
 
+map("n", "<leader>xx", "<CMD>Trouble diagnostics toggle<CR>",opts)
+map("n", "<leader>xX", "<CMD>Trouble diagnostics toggle filter.buf=0<CR>",opts)
+
 -- Version control
 map("n", "<leader>lg", "<CMD>LazyGit<CR>", opts)
 
 -- Command-line convenience
 map({ "n", "v", "x" }, ";", ":", opts)
-map({ "n" }, "<leader><leader>", ":", opts)
+map({ "n" }, "<leader><leader>", ":")
