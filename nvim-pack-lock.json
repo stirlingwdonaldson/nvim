@@ -96,9 +96,17 @@
       "rev": "fd2cc99",
       "src": "https://github.com/kelly-lin/ranger.nvim.git"
     },
+    "startup.nvim": {
+      "rev": "9ca3b9a55f2f2196ef90b39a52029b46fdde5226",
+      "src": "https://github.com/max397574/startup.nvim.git"
+    },
     "telescope.nvim": {
       "rev": "5255aa2",
       "src": "https://github.com/nvim-telescope/telescope.nvim.git"
+    },
+    "triforce.nvim": {
+      "rev": "56d1015",
+      "src": "https://github.com/gisketch/triforce.nvim.git"
     },
     "trouble.nvim": {
       "rev": "bd67efe",
@@ -107,6 +115,10 @@
     "vim-moonfly-colors": {
       "rev": "d11b3d0",
       "src": "https://github.com/bluz71/vim-moonfly-colors.git"
+    },
+    "volt": {
+      "rev": "620de13",
+      "src": "https://github.com/nvzone/volt.git"
     },
     "which-key.nvim": {
       "rev": "3aab214",

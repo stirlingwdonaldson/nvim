@@ -1,6 +1,5 @@
 vim.g.mapleader = " "
 
-
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 local function comment_title(size)
@@ -33,7 +32,7 @@ map("n", "<leader>xX", "<CMD>Trouble diagnostics toggle filter.buf=0<CR>", opts)
 -- screen
 
 map({ "n" }, "<leader>%", "<CMD>vsplit<CR>", opts)
-map({ "n" }, "<leader>\"", "<CMD>split<CR>", opts)
+map({ "n" }, '<leader>"', "<CMD>split<CR>", opts)
 
 -- Version control
 map("n", "<leader>lg", "<CMD>LazyGit<CR>", opts)

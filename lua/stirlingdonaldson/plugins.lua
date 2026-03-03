@@ -16,6 +16,7 @@ vim.pack.add({
 
 	-- UI and navigation
 	{ src = "https://github.com/MunifTanjim/nui.nvim.git" },
+	{ src = "https://github.com/nvzone/volt.git" },
 	{ src = "https://github.com/folke/noice.nvim.git" },
 	{ src = "https://github.com/folke/which-key.nvim.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
@@ -24,7 +25,9 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lualine/lualine.nvim.git" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
 	{ src = "https://github.com/rcarriga/nvim-notify.git" },
+	{ src = "https://github.com/max397574/startup.nvim.git" },
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
+	{ src = "https://github.com/gisketch/triforce.nvim.git" },
 
 	-- Themes
 	{ src = "https://github.com/bluz71/vim-moonfly-colors.git" },
@@ -160,6 +163,93 @@ require("which-key").setup({
 		{ "<leader>", mode = "n" },
 		{ "<localleader>", mode = "n" },
 	},
+})
+
+require("triforce").setup()
+
+local startup_header_top = {
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$X:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$X:;X$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$$$$X;      ;X$$$$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$$$$X;.          .;X$$$$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$$$$X;                  ;X$$$$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$$$X;                        ;X$$$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$$$$$;.                            .;$$$$$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$$$$X+                                    +X$$$$$$$$$$$:                  ",
+	"                  :$$$$$$$$X+.                                        .+$$$$$$$$$:                  ",
+	"                  :$$$$$$+.                                              .+$$$$$$:                  ",
+}
+
+local startup_header_text = {
+	"                                               &&&.;&&+                                             ",
+	"                   +xxx+  :xxxx;               &&&.;&&+                                             ",
+	"                   .&&&&: +&&&+                &&&.;&&+                                             ",
+	"                    &+&&+ $+&&+                &&&.;&&+:       .             .                      ",
+	"                   .&.&&X.&:&&+ ;&&X&X .$&&&X&$&&&.;&&$:&$  :&$;&$ X&&&x&&.&&;&&:                   ",
+	"                    &.&&&;$.&&+ ;&&.$&; :&&X:$;&&&.;&&+ X&$ &&; $&x.&&$ $x$&X +&$                   ",
+	"                   .&.$&&$$.&&+     $&x :&&X   &&&.;&&+ X&&;&&; $&&.&&&  .&&X +&&:                  ",
+	"                    &.+&&&+.&&+ x&&+$&x :&&X   &&&.;&&+ X&&+&&; $&&:&&$  .&&X +&&;                  ",
+	"                   .&..&&&..&&+;&&X $&x :&&X   &&&.;&&+ X&&:&&; $&&.&&$   &&X +&&:                  ",
+	"                    &. $&$ .&&+:&&$.&&x :&&X   &&&.;&&x $&: $&+ &&:.&&&   +&$ X&x                   ",
+	"                   X$$.x$x:$$$$+:$$X:X$;$$$$x $$$$X$$$$&$:   +&&$. X$$$$.  :$&$;                    ",
+}
+
+vim.api.nvim_set_hl(0, "StartupRed", { fg = "#ff4d4d" })
+vim.api.nvim_set_hl(0, "StartupWhite", { fg = "#ffffff" })
+
+require("startup").setup({
+	section_header_top = {
+		type = "text",
+		align = "center",
+		fold_section = false,
+		title = "Header Top",
+		margin = 5,
+		content = startup_header_top,
+		highlight = "StartupRed",
+	},
+	section_header_text = {
+		type = "text",
+		align = "center",
+		fold_section = false,
+		title = "Header Text",
+		margin = 5,
+		content = startup_header_text,
+		highlight = "StartupWhite",
+	},
+	section_commands = {
+		type = "mapping",
+		align = "center",
+		fold_section = false,
+		title = "Commands",
+		margin = 5,
+		content = {
+			{ "Open file explorer", "Oil", "<leader>e" },
+			{ "Find files", "Telescope find_files", "<leader>f" },
+			{ "Open lazygit", "LazyGit", "<leader>lg" },
+			{ "Quit Neovim", "qa", "<leader>Q" },
+		},
+		highlight = "String",
+	},
+	options = {
+		mapping_keys = true,
+		cursor_column = 0.5,
+		empty_lines_between_mappings = true,
+		disable_statuslines = false,
+		paddings = { 1, 1, 2 },
+	},
+	parts = { "section_header_top", "section_header_text", "section_commands" },
 })
 
 -- Completion
