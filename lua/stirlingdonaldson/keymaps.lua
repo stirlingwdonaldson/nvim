@@ -22,8 +22,13 @@ map("n", "<leader>lf", function()
 	vim.notify("Formatted", vim.log.levels.INFO)
 end, opts)
 
-map("n", "<leader>xx", "<CMD>Trouble diagnostics toggle<CR>",opts)
-map("n", "<leader>xX", "<CMD>Trouble diagnostics toggle filter.buf=0<CR>",opts)
+map("n", "<leader>xx", "<CMD>Trouble diagnostics toggle<CR>", opts)
+map("n", "<leader>xX", "<CMD>Trouble diagnostics toggle filter.buf=0<CR>", opts)
+
+-- screen
+
+map({ "n" }, "<leader>%", "<CMD>vsplit<CR>", opts)
+map({ "n" }, "<leader>\"", "<CMD>split<CR>", opts)
 
 -- Version control
 map("n", "<leader>lg", "<CMD>LazyGit<CR>", opts)
