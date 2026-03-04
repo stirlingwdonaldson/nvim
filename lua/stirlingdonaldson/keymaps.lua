@@ -51,3 +51,7 @@ end, opts)
 map("n", "<leader>mtl", function()
 	comment_title("large")
 end, opts)
+
+vim.keymap.set("n", "<leader>pa", function()
+  vim.fn.jobstart({ "open", vim.fn.expand("%:p") }, { detach = true })
+end)
