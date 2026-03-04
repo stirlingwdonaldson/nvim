@@ -17,3 +17,15 @@ vim.o.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.o.winborder = "rounded"
 vim.cmd("colorscheme github_dark_high_contrast")
+
+vim.diagnostic.config({
+	virtual_text = {
+		spacing = 2,
+		prefix = "●",
+		source = "if_many",
+	},
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+})

@@ -55,3 +55,5 @@ end, opts)
 vim.keymap.set("n", "<leader>pa", function()
   vim.fn.jobstart({ "open", vim.fn.expand("%:p") }, { detach = true })
 end)
+
+vim.keymap.set("n", "<leader>F", "<cmd>silent !open -R %:p<CR>")

@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "PDFview": {
+      "rev": "972dfcce5c0de578865649940f44bf57a700498d",
+      "src": "https://github.com/basola21/PDFview.git"
+    },
     "blink": {
       "rev": "28badce",
       "src": "https://github.com/saghen/blink.cmp.git"
@@ -27,6 +31,10 @@
     "hml.nvim": {
       "rev": "54b4d0a",
       "src": "https://github.com/mawkler/hml.nvim.git"
+    },
+    "hologram.nvim": {
+      "rev": "f5194f71ec1578d91b2e3119ff08e574e2eab542",
+      "src": "https://github.com/edluffy/hologram.nvim.git"
     },
     "indent-blankline.nvim": {
       "rev": "d28a3f7",
