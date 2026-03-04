@@ -23,7 +23,6 @@ map("n", "<leader>lf", function()
 		async = false,
 		lsp_fallback = true,
 	})
-	vim.notify("Formatted", vim.log.levels.INFO)
 end, opts)
 
 map("n", "<leader>xx", "<CMD>Trouble diagnostics toggle<CR>", opts)
@@ -37,9 +36,30 @@ map({ "n" }, '<leader>"', "<CMD>split<CR>", opts)
 -- Version control
 map("n", "<leader>lg", "<CMD>LazyGit<CR>", opts)
 
+-- Typst
+map("n", "<leader>t", "<CMD>TypstPreview<CR>", opts)
+map("n", "<leader>c", function()
+	local input = vim.fn.expand("%:p")
+	local output = vim.fn.expand("%:p:r") .. ".pdf"
+	vim.cmd("write")
+	vim.fn.jobstart({ "typst", "compile", input, output }, {
+		on_exit = function(_, code)
+			if code == 0 then
+				vim.schedule(function()
+					vim.notify("Compiled: " .. output, vim.log.levels.INFO)
+				end)
+			else
+				vim.schedule(function()
+					vim.notify("Typst compile failed", vim.log.levels.ERROR)
+				end)
+			end
+		end,
+	})
+end, opts)
+
 -- Command-line convenience
 map({ "n", "v", "x" }, ";", ":", opts)
-map({ "n" }, "<leader><leader>", ":")
+-- map({ "n" }, "<leader><leader>", ":")
 
 -- Comment titles
 map("n", "<leader>mt", function()

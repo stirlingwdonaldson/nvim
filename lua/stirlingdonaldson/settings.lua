@@ -23,6 +23,7 @@ vim.diagnostic.config({
 		spacing = 2,
 		prefix = "●",
 		source = "if_many",
+		severity = vim.diagnostic.severity.ERROR,
 	},
 	signs = true,
 	underline = true,

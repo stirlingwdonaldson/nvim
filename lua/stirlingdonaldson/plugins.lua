@@ -24,7 +24,6 @@ vim.pack.add({
 	{ src = "https://github.com/mawkler/hml.nvim.git" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim.git" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
-	{ src = "https://github.com/rcarriga/nvim-notify.git" },
 	{ src = "https://github.com/max397574/startup.nvim.git" },
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
 	{ src = "https://github.com/gisketch/triforce.nvim.git" },
@@ -33,6 +32,12 @@ vim.pack.add({
 	{ src = "https://github.com/bluz71/vim-moonfly-colors.git" },
 	{ src = "https://github.com/dasupradyumna/midnight.nvim.git" },
 	{ src = "https://github.com/projekt0n/github-nvim-theme.git" },
+
+	-- Typst
+	{ src = "https://github.com/chomosuke/typst-preview.nvim.git" },
+
+	-- Obsidian
+	{ src = "https://github.com/obsidian-nvim/obsidian.nvim.git" },
 })
 
 require("mason").setup()
@@ -43,6 +48,7 @@ require("mason-lspconfig").setup({
 		"pyright",
 		"gopls",
 		"clangd",
+		"tinymist",
 	},
 	automatic_enable = true,
 })
@@ -55,6 +61,7 @@ require("mason-tool-installer").setup({
 		"pyright",
 		"gopls",
 		"clangd",
+		"tinymist",
 
 		-- Formatters
 		"stylua",
@@ -70,6 +77,28 @@ require("mason-tool-installer").setup({
 })
 
 require("trouble").setup()
+require("typst-preview").setup({})
+require("obsidian").setup({
+	legacy_commands = false,
+	workspaces = {
+		{
+			name = "zettelkasten",
+			path = "/Users/stirlingdonaldson/Documents/zettelkasten/",
+		},
+	},
+	notes_subdir = "notes",
+	new_notes_location = "notes_subdir",
+	daily_notes = {
+		folder = "daily",
+	},
+	completion = {
+		blink = true,
+		min_chars = 2,
+	},
+	picker = {
+		name = "telescope.nvim",
+	},
+})
 
 -- Formatting
 local conform = require("conform")
@@ -92,16 +121,6 @@ conform.setup({
 	},
 })
 
-local function essential_notify(message)
-	vim.notify(message, vim.log.levels.INFO)
-end
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-	callback = function()
-		essential_notify("Saved")
-	end,
-})
-
 -- UI Helpers
 local hooks = require("ibl.hooks")
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -115,45 +134,12 @@ require("ibl").setup({
 	},
 })
 
-require("notify").setup({
-	render = "minimal",
-	timeout = 900,
-	background_colour = "#0D1117",
-})
-
-vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#3FB950" })
-vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = "#3FB950" })
-vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = "#3FB950" })
-
 require("noice").setup({
 	lsp = {
 		override = {
 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			["vim.lsp.util.stylize_markdown"] = true,
 			["cmp.entry.get_documentation"] = true,
-		},
-	},
-	routes = {
-		{
-			filter = {
-				event = "notify",
-				kind = { "warn", "error" },
-			},
-			view = "notify",
-		},
-		{
-			filter = {
-				event = "notify",
-				any = {
-					{ find = "^Saved$" },
-					{ find = "^Formatted$" },
-				},
-			},
-			view = "notify",
-		},
-		{
-			filter = { event = "notify" },
-			opts = { skip = true },
 		},
 	},
 })

@@ -88,6 +88,10 @@
       "rev": "737cf6c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons.git"
     },
+    "obsidian.nvim": {
+      "rev": "3094a93",
+      "src": "https://github.com/obsidian-nvim/obsidian.nvim.git"
+    },
     "oil.nvim": {
       "rev": "0fcc838",
       "src": "https://github.com/stevearc/oil.nvim.git"
@@ -119,6 +123,10 @@
     "trouble.nvim": {
       "rev": "bd67efe",
       "src": "https://github.com/folke/trouble.nvim.git"
+    },
+    "typst-preview.nvim": {
+      "rev": "bf5d5eaf23bbfcca9f98a24ed29bd084abf89bf2",
+      "src": "https://github.com/chomosuke/typst-preview.nvim.git"
     },
     "vim-moonfly-colors": {
       "rev": "d11b3d0",
