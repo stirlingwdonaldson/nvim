@@ -128,6 +128,10 @@
       "rev": "bf5d5eaf23bbfcca9f98a24ed29bd084abf89bf2",
       "src": "https://github.com/chomosuke/typst-preview.nvim.git"
     },
+    "vim-be-good": {
+      "rev": "0ae3de1",
+      "src": "https://github.com/ThePrimeagen/vim-be-good.git"
+    },
     "vim-moonfly-colors": {
       "rev": "d11b3d0",
       "src": "https://github.com/bluz71/vim-moonfly-colors.git"

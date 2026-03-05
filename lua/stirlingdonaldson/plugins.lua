@@ -38,6 +38,9 @@ vim.pack.add({
 
 	-- Obsidian
 	{ src = "https://github.com/obsidian-nvim/obsidian.nvim.git" },
+
+   -- Primeagen
+   { src = "https://github.com/ThePrimeagen/vim-be-good.git"}
 })
 
 require("mason").setup()
