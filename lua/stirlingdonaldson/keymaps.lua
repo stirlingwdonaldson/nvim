@@ -21,7 +21,7 @@ map("n", "<leader>f", "<CMD>Telescope find_files<CR>", opts)
 map("n", "<leader>lf", function()
 	require("conform").format({
 		async = false,
-		lsp_fallback = true,
+		lsp_format = "fallback",
 	})
 end, opts)
 
@@ -56,6 +56,9 @@ map("n", "<leader>c", function()
 		end,
 	})
 end, opts)
+
+-- Live server
+map("n", "<leader>ls", "<CMD>LiveServerToggle<CR>", opts)
 
 -- Command-line convenience
 map({ "n", "v", "x" }, ";", ":", opts)
