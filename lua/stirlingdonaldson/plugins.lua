@@ -6,6 +6,9 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/pmizio/typescript-tools.nvim.git" },
+	{ src = "https://github.com/windwp/nvim-ts-autotag.git" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter.git" },
 
 	{ src = "https://github.com/folke/trouble.nvim.git" },
 
@@ -13,6 +16,10 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim.git" },
 	{ src = "https://github.com/saghen/blink.cmp.git" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim.git" },
+
+	-- Snippets
+	{ src = "https://github.com/L3MON4D3/LuaSnip.git" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets.git" },
 
 	-- UI and navigation
 	{ src = "https://github.com/MunifTanjim/nui.nvim.git" },
@@ -32,6 +39,7 @@ vim.pack.add({
 	{ src = "https://github.com/bluz71/vim-moonfly-colors.git" },
 	{ src = "https://github.com/dasupradyumna/midnight.nvim.git" },
 	{ src = "https://github.com/projekt0n/github-nvim-theme.git" },
+	{ src = "https://github.com/stirlingwdonaldson/eigengrau.git" },
 
 	-- Typst
 	{ src = "https://github.com/chomosuke/typst-preview.nvim.git" },
@@ -40,31 +48,40 @@ vim.pack.add({
 	{ src = "https://github.com/obsidian-nvim/obsidian.nvim.git" },
 
    -- Primeagen
-   { src = "https://github.com/ThePrimeagen/vim-be-good.git"}
+   { src = "https://github.com/ThePrimeagen/vim-be-good.git"},
+
+   -- Color previews
+   { src = "https://github.com/brenoprata10/nvim-highlight-colors.git"},
+
+   -- Live server
+   { src = "https://github.com/barrett-ruth/live-server.nvim.git" },
 })
 
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"lua_ls",
-		"ts_ls",
 		"pyright",
 		"gopls",
 		"clangd",
 		"tinymist",
+		"tailwindcss",
+      "jdtls",
 	},
-	automatic_enable = true,
+	automatic_enable = {
+		exclude = { "ts_ls" },
+	},
 })
 
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		-- LSP servers
 		"lua_ls",
-		"ts_ls",
 		"pyright",
 		"gopls",
 		"clangd",
 		"tinymist",
+		"tailwindcss",
 
 		-- Formatters
 		"stylua",
@@ -74,10 +91,34 @@ require("mason-tool-installer").setup({
 		"isort",
 		"gofumpt",
 		"goimports",
+		"google-java-format",
+      "biome",
 	},
 	auto_update = false,
 	run_on_start = true,
 })
+
+require("nvim-treesitter").setup()
+
+-- Install treesitter parsers if missing
+local wanted_parsers = { "html", "typescript", "tsx", "javascript", "css" }
+local installed = require("nvim-treesitter").get_installed()
+local installed_set = {}
+for _, p in ipairs(installed) do
+	installed_set[p] = true
+end
+local to_install = {}
+for _, p in ipairs(wanted_parsers) do
+	if not installed_set[p] then
+		table.insert(to_install, p)
+	end
+end
+if #to_install > 0 then
+	require("nvim-treesitter").install(to_install)
+end
+
+require("typescript-tools").setup({})
+require("nvim-ts-autotag").setup()
 
 require("trouble").setup()
 require("typst-preview").setup({})
@@ -103,6 +144,8 @@ require("obsidian").setup({
 	},
 })
 
+vim.g.live_server = {}
+
 -- Formatting
 local conform = require("conform")
 
@@ -121,6 +164,8 @@ conform.setup({
 
 		python = { "isort", "black" },
 		go = { "goimports", "gofumpt" },
+
+		java = { "google-java-format" },
 	},
 })
 
@@ -135,6 +180,12 @@ require("ibl").setup({
 		highlight = "IblIndent",
 		char = "│",
 	},
+})
+
+require("nvim-highlight-colors").setup({
+	render = "virtual",
+	enable_named_colors = false,
+	enable_tailwind = true,
 })
 
 require("noice").setup({
@@ -232,6 +283,10 @@ require("blink.cmp").setup({
 	keymap = {
 		preset = "super-tab",
 	},
+	snippets = { preset = "luasnip" },
+	sources = {
+		default = { "lsp", "path", "snippets", "buffer" },
+	},
 	fuzzy = {
 		implementation = "rust",
 		prebuilt_binaries = {
@@ -239,6 +294,29 @@ require("blink.cmp").setup({
 		},
 	},
 })
+
+-- Snippets
+local ls = require("luasnip")
+
+ls.setup({
+	history = true,
+	updateevents = "TextChanged,TextChangedI",
+	delete_check_events = "TextChanged",
+})
+
+require("luasnip.loaders.from_vscode").lazy_load()
+
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
+	if ls.expand_or_jumpable() then
+		ls.expand_or_jump()
+	end
+end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
+	if ls.jumpable(-1) then
+		ls.jump(-1)
+	end
+end, { silent = true })
 
 -- Navigation
 require("telescope").setup()
