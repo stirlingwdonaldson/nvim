@@ -1,8 +1,9 @@
 vim.pack.add({
+  -- general dependencies
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim.git" },
-  -- LSP PLUGINS
-  --
+
+  -- lsp plugins
 	{ src = "https://github.com/mason-org/mason.nvim.git" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim.git" },
 	{ src = "https://github.com/neovim/nvim-lspconfig.git" },
@@ -12,6 +13,10 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
 	{ src = "https://github.com/junegunn/fzf.vim.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
+
+  -- documents
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim.git"},
+  { src = "https://github.com/chomosuke/typst-preview.nvim.git"},
 })
 
 require("nvim-web-devicons").setup()
@@ -51,6 +56,8 @@ require("oil").setup({
 		},
 	},
 })
+
+
 
 -- oil bg color
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
