@@ -1,9 +1,15 @@
 vim.pack.add({
   { src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
+  { src = "https://github.com/nvim-lua/plenary.nvim.git" },
+
+  { src = "https://github.com/nvim-telescope/telescope.nvim.git" },
   { src = "https://github.com/stevearc/oil.nvim.git"},
+  
 })
 
 require("nvim-web-devicons").setup()
+
+require("telescope").setup()
 
 require("oil").setup({
   view_options = {
@@ -24,5 +30,5 @@ float = {
 
 
 
--- vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+-- oil bg color
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })

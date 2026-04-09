@@ -17,7 +17,8 @@ vim.opt.signcolumn = "yes"      -- Always show signcolumn
 vim.opt.fillchars = { eob = " " }
 vim.o.background = "dark"  -- or "light"
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
 
 -- Appearance
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+
 -- vim.cmd([[colorscheme darkblue]]) 
