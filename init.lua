@@ -1,3 +1,3 @@
-print("running init.lua...")
-
+require("stirlingdonaldson.keymaps")
+require("stirlingdonaldson.plugins")
 require("stirlingdonaldson.settings")
