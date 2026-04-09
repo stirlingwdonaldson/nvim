@@ -57,6 +57,11 @@ require("oil").setup({
 	},
 })
 
+require("typst-preview").setup({
+	-- Route preview URL through our script so we can manage window layout.
+	open_cmd = vim.fn.stdpath("config") .. "/scripts/typst_preview_layout.sh '%s'",
+})
+
 
 
 -- oil bg color
