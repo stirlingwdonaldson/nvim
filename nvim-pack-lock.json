@@ -4,6 +4,10 @@
       "rev": "34a564c81f36047f50e593c1656f4580ff75ccca",
       "src": "https://github.com/junegunn/fzf.vim.git"
     },
+    "lazygit.nvim": {
+      "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
+      "src": "https://github.com/kdheepak/lazygit.nvim.git"
+    },
     "mason-lspconfig.nvim": {
       "rev": "63a3c6a80538de1003373a619e29aeda27809ad3",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim.git"

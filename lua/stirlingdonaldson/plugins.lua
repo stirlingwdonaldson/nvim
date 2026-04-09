@@ -10,6 +10,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim.git" },
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
 	{ src = "https://github.com/junegunn/fzf.vim.git" },
+	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
 })
 
 require("nvim-web-devicons").setup()
@@ -31,6 +32,7 @@ require("telescope").setup({
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require("telescope").load_extension("fzf")
+require('telescope').load_extension('lazygit')
 
 require("oil").setup({
 	view_options = {
