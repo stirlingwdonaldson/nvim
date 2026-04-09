@@ -23,8 +23,6 @@ float = {
 })
 
 
--- vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#7aa2f7" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1b26" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })

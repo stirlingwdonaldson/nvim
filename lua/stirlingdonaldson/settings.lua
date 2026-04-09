@@ -15,6 +15,9 @@ vim.opt.splitbelow = true       -- Horizontal splits to the bottom
 vim.opt.scrolloff = 8           -- Minimal number of screen lines to keep above/below cursor
 vim.opt.signcolumn = "yes"      -- Always show signcolumn
 vim.opt.fillchars = { eob = " " }
+vim.o.background = "dark"  -- or "light"
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
 
 -- Appearance
 -- vim.cmd([[colorscheme darkblue]]) 
