@@ -1,4 +1,6 @@
-print("working!")
+print("running init.lua...")
+
+require("stirlingdonaldson.settings")
 
 vim.g.mapleader = " "
 
