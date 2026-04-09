@@ -16,3 +16,7 @@ vim.keymap.set("n", "<leader>F", builtin.live_grep, { desc = "Telescope live gre
 
 -- formatting
 vim.keymap.set("n", "<leader>lf", "<CMD>lua vim.lsp.buf.format()<CR>", { noremap = true, silent = true})
+
+-- lazygit
+
+vim.keymap.set("n", "<leader>lg", "<CMD>LazyGit<CR>", { noremap = true, silent = true})
