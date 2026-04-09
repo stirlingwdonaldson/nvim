@@ -42,3 +42,31 @@ vim.keymap.set("n", "<leader>t", function()
   vim.cmd("TypstPreview")
 
 end, { noremap = true, silent = true, desc = "Typst preview + layout" })
+
+
+-- lsp
+
+vim.diagnostic.config({
+  update_in_insert = true,
+})
+
+local diagnostic_qf_group = vim.api.nvim_create_augroup("diagnostic_qf_refresh", { clear = true })
+
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+  group = diagnostic_qf_group,
+  callback = function()
+    vim.diagnostic.setqflist({
+      severity = vim.diagnostic.severity.ERROR,
+      open = false,
+    })
+  end,
+})
+
+vim.keymap.set("n", "<leader>de", function()
+  vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+  vim.cmd("copen")
+end, { desc = "All errors (quickfix)" })
+vim.keymap.set("n", "<leader>db", function()
+  vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR })
+  vim.cmd("lopen")
+end, { desc = "Buffer errors (loclist)" })

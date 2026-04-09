@@ -20,4 +20,30 @@ vim.o.background = "dark" -- or "light"
 -- Appearance
 vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
 
+
+-- LSP
+
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    spacing = 2,
+    source = "if_many",
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = "if_many",
+  },
+})
+
+vim.o.updatetime = 250
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+  end,
+})
+
 -- vim.cmd([[colorscheme darkblue]])
