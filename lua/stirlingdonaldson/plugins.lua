@@ -1,12 +1,14 @@
 vim.pack.add({
-  -- general dependencies
+	-- general dependencies
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim.git" },
 
-  -- lsp plugins
+	-- lsp plugins
 	{ src = "https://github.com/mason-org/mason.nvim.git" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim.git" },
 	{ src = "https://github.com/neovim/nvim-lspconfig.git" },
+	{ src = "https://github.com/saghen/blink.cmp.git", version = "v1.10.2" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets.git" },
 
 	{ src = "https://github.com/nvim-telescope/telescope.nvim.git" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim.git" },
@@ -14,15 +16,31 @@ vim.pack.add({
 	{ src = "https://github.com/junegunn/fzf.vim.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
 
-  -- documents
-  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim.git"},
-  { src = "https://github.com/chomosuke/typst-preview.nvim.git"},
+	-- documents
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim.git" },
+	{ src = "https://github.com/chomosuke/typst-preview.nvim.git" },
+
+  -- colorscheme
+  { src = "https://github.com/EdenEast/nightfox.nvim.git"}
 })
 
 require("nvim-web-devicons").setup()
 
-require("mason").setup()
-require("mason-lspconfig").setup()
+require("blink.cmp").setup({
+	keymap = { preset = "default" },
+	sources = { default = { "lsp", "path", "snippets", "buffer" } },
+	fuzzy = { implementation = "lua" },
+})
+
+
+require("mason").setup({
+	PATH = "prepend",
+})
+require("mason-lspconfig").setup({
+	ensure_installed = { "vtsls", "tailwindcss", "pyright" },
+	automatic_enable = { exclude = { "ts_ls" } },
+})
+
 
 require("telescope").setup({
 	extensions = {
@@ -38,7 +56,7 @@ require("telescope").setup({
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require("telescope").load_extension("fzf")
-require('telescope').load_extension('lazygit')
+require("telescope").load_extension("lazygit")
 
 require("oil").setup({
 	view_options = {
@@ -46,23 +64,12 @@ require("oil").setup({
 	},
 	delete_to_trash = true,
 
-	float = {
-		padding = 1,
-		max_width = 0.8,
-		max_height = 0.8,
-		border = "rounded",
-		win_options = {
-			winblend = 5,
-		},
-	},
 })
 
 require("typst-preview").setup({
 	-- Route preview URL through our script so we can manage window layout.
 	open_cmd = vim.fn.stdpath("config") .. "/scripts/typst_preview_layout.sh '%s'",
 })
-
-
 
 -- oil bg color
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })

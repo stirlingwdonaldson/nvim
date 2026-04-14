@@ -1,6 +1,5 @@
 vim.g.mapleader = " "
 
-
 -- general
 vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true})
 vim.keymap.set("n", "<leader>q", ":q<CR>", { noremap = true, silent = true})
@@ -8,7 +7,7 @@ vim.keymap.set("n", "<leader>Q", ":qa!<CR>", { noremap = true, silent = true})
 
 -- oil
 vim.keymap.set("n", "q", "<cmd>close<CR>")
-vim.keymap.set("n", "<leader>e", "<CMD>Oil --float<CR>", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { noremap = true, silent = true})
 
 -- telescope
 local builtin = require('telescope.builtin')
@@ -41,32 +40,8 @@ vim.keymap.set("n", "<leader>t", function()
   ensure_tmux_pane_zoomed()
   vim.cmd("TypstPreview")
 
-end, { noremap = true, silent = true, desc = "Typst preview + layout" })
+end, { noremap = true, silent = true, desc = "Typst preview + Layout" })
 
 
--- lsp
 
-vim.diagnostic.config({
-  update_in_insert = true,
-})
 
-local diagnostic_qf_group = vim.api.nvim_create_augroup("diagnostic_qf_refresh", { clear = true })
-
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-  group = diagnostic_qf_group,
-  callback = function()
-    vim.diagnostic.setqflist({
-      severity = vim.diagnostic.severity.ERROR,
-      open = false,
-    })
-  end,
-})
-
-vim.keymap.set("n", "<leader>de", function()
-  vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
-  vim.cmd("copen")
-end, { desc = "All errors (quickfix)" })
-vim.keymap.set("n", "<leader>db", function()
-  vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR })
-  vim.cmd("lopen")
-end, { desc = "Buffer errors (loclist)" })
