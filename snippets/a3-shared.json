@@ -1,0 +1,200 @@
+{
+  "A3 gitignore essentials": {
+    "prefix": ["a3gitignore", ";a3gitignore"],
+    "description": "A3 .gitignore essentials",
+    "body": [
+      "node_modules/",
+      ".next/",
+      "dist/",
+      "build/",
+      ".env",
+      ".env.local"
+    ]
+  },
+  "A3 rubric checklist": {
+    "prefix": ["a3checklist", ";a3checklist"],
+    "description": "A3 rubric checklist comment",
+    "body": [
+      "/*",
+      "A3 checklist:",
+      "- TypeScript only",
+      "- Functional components only",
+      "- All required fields shown",
+      "- Two-column layout with header, left, right, footer",
+      "- React-only validation with inline error messages",
+      "- API call kept in a separate file",
+      "- Loading and error states displayed",
+      "- Context hook used for shared state",
+      "- Unit test kept in a separate __tests__ directory",
+      "- node_modules excluded from Git",
+      "*/"
+    ]
+  },
+  "A3 API helper": {
+    "prefix": ["a3api", ";a3api"],
+    "description": "Typed API helper kept separate from UI components",
+    "body": [
+      "export interface ${1:ApiRequest} {",
+      "  ${2:value}: ${3:string};",
+      "}",
+      "",
+      "export interface ${4:ApiResponse} {",
+      "  ${5:result}: ${6:number};",
+      "}",
+      "",
+      "export async function ${7:fetchResult}(${8:request}: ${1:ApiRequest}): Promise<${4:ApiResponse}> {",
+      "  const params = new URLSearchParams({",
+      "    ${2:value}: ${8:request}.${2:value},",
+      "  });",
+      "",
+      "  const response = await fetch(`${9:API_URL}?\\${params.toString()}`);",
+      "",
+      "  if (!response.ok) {",
+      "    throw new Error('Unable to retrieve data from the API');",
+      "  }",
+      "",
+      "  return response.json() as Promise<${4:ApiResponse}>;",
+      "}"
+    ]
+  },
+  "A3 validation helper": {
+    "prefix": ["a3validate", ";a3validate"],
+    "description": "Pure validation helper for form logic and unit tests",
+    "body": [
+      "export interface ${1:FormValues} {",
+      "  ${2:name}: string;",
+      "  ${3:email}: string;",
+      "}",
+      "",
+      "export type ${1:FormValues}Errors = Partial<Record<keyof ${1:FormValues}, string>>;",
+      "",
+      "export function validate${1:FormValues}(values: ${1:FormValues}): ${1:FormValues}Errors {",
+      "  const errors: ${1:FormValues}Errors = {};",
+      "",
+      "  if (!values.${2:name}.trim()) {",
+      "    errors.${2:name} = '${4:Name} is required';",
+      "  }",
+      "",
+      "  if (!values.${3:email}.trim()) {",
+      "    errors.${3:email} = '${5:Email} is required';",
+      "  } else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(values.${3:email})) {",
+      "    errors.${3:email} = 'Enter a valid email address';",
+      "  }",
+      "",
+      "  return errors;",
+      "}"
+    ]
+  },
+  "A3 localStorage helper": {
+    "prefix": ["a3storage", ";a3storage"],
+    "description": "Typed localStorage helpers",
+    "body": [
+      "const ${1:storageKey} = '${2:app-data}';",
+      "",
+      "export function load${3:Items}<T>(): T[] {",
+      "  const raw = localStorage.getItem(${1:storageKey});",
+      "  return raw ? (JSON.parse(raw) as T[]) : [];",
+      "}",
+      "",
+      "export function save${3:Items}<T>(items: T[]): void {",
+      "  localStorage.setItem(${1:storageKey}, JSON.stringify(items));",
+      "}"
+    ]
+  },
+  "A3 Vitest test": {
+    "prefix": ["a3test", ";a3test"],
+    "description": "Vitest test template with required explanation comment",
+    "body": [
+      "import { describe, expect, test } from 'vitest';",
+      "import { ${1:validateFormValues} } from '../src/lib/${2:validation}';",
+      "",
+      "describe('${3:form validation}', () => {",
+      "  test('${4:returns an error when required fields are empty}', () => {",
+      "    // This test checks the business validation logic directly, rather than only checking that React renders.",
+      "    const result = ${1:validateFormValues}({ ${5:name}: '', ${6:email}: '' });",
+      "",
+      "    expect(result.${5:name}).toBeDefined();",
+      "    expect(result.${6:email}).toBeDefined();",
+      "  });",
+      "});"
+    ]
+  },
+  "W12 required validation": {
+    "prefix": ["w12required", ";w12required"],
+    "description": "Required-field validation block for the W12 template",
+    "body": [
+      "requireValue(errors, values, \"${1:fieldName}\", \"${2:Field label}\");"
+    ]
+  },
+  "W12 integer range validation": {
+    "prefix": ["w12int", ";w12int"],
+    "description": "Integer range validation block for the W12 template",
+    "body": [
+      "validateIntegerRange(errors, values, \"${1:fieldName}\", \"${2:Field label}\", ${3:1}, ${4:100});"
+    ]
+  },
+  "W12 decimal range validation": {
+    "prefix": ["w12decimal", ";w12decimal"],
+    "description": "Decimal range validation block for the W12 template",
+    "body": [
+      "validateDecimalRange(errors, values, \"${1:fieldName}\", \"${2:Field label}\", ${3:0.01}, ${4:9999.99});"
+    ]
+  },
+  "W12 string length validation": {
+    "prefix": ["w12length", ";w12length"],
+    "description": "Min/max string length validation blocks for the W12 template",
+    "body": [
+      "validateMinLength(errors, values, \"${1:fieldName}\", \"${2:Field label}\", ${3:2});",
+      "validateMaxLength(errors, values, \"${1:fieldName}\", \"${2:Field label}\", ${4:80});"
+    ]
+  },
+  "W12 password validation": {
+    "prefix": ["w12password", ";w12password"],
+    "description": "Password validation block for the W12 template",
+    "body": [
+      "validatePasswordRules(errors, values, \"${1:password}\", \"${2:Password}\", {",
+      "  minLength: ${3:8},",
+      "  requireUppercase: true,",
+      "  requireLowercase: true,",
+      "  requireNumber: true,",
+      "  requireSymbol: true,",
+      "});"
+    ]
+  },
+  "W12 matching field validation": {
+    "prefix": ["w12match", ";w12match"],
+    "description": "Cross-field match validation block for the W12 template",
+    "body": [
+      "validateMatchesField(errors, values, \"${1:confirmPassword}\", \"${2:Confirm password}\", \"${3:password}\", \"${4:Password}\");"
+    ]
+  },
+  "W12 date future validation": {
+    "prefix": ["w12future", ";w12future"],
+    "description": "Today-or-future date validation block for the W12 template",
+    "body": [
+      "validateDateTodayOrFuture(errors, values, \"${1:requiredDate}\", \"${2:Required date}\");"
+    ]
+  },
+  "W12 payload property": {
+    "prefix": ["w12payload", ";w12payload"],
+    "description": "API payload mapping property for the W12 template",
+    "body": [
+      "${1:apiField}: ${2:values.formField.trim()},"
+    ]
+  },
+  "W12 validation test case": {
+    "prefix": ["w12test", ";w12test"],
+    "description": "Scenario validation test with rubric comment",
+    "body": [
+      "it(\"rejects ${1:invalid scenario value}\", () => {",
+      "  // This test protects a specific business rule from the handout, not just generic rendering.",
+      "  const errors = validateAssessmentForm({",
+      "    ...validValues,",
+      "    ${2:fieldName}: ${3:\"bad value\"},",
+      "  });",
+      "",
+      "  expect(errors.${2:fieldName}).toBe(\"${4:Expected error message.}\");",
+      "});"
+    ]
+  }
+}

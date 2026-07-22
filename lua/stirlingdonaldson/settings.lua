@@ -17,7 +17,25 @@ vim.opt.signcolumn = "yes" -- Always show signcolumn
 vim.opt.fillchars = { eob = " " }
 vim.o.background = "dark" -- or "light"
 
+vim.o.cmdheight = 0
+
 -- Appearance
 vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+
+vim.diagnostic.config({
+  virtual_text = {
+    spacing = 2,
+    source = "if_many",
+    prefix = "●",
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    source = "if_many",
+    border = "rounded",
+  },
+})
 
 vim.cmd([[colorscheme carbonfox]])

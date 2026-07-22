@@ -7,6 +7,7 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim.git" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim.git" },
 	{ src = "https://github.com/neovim/nvim-lspconfig.git" },
+	{ src = "https://github.com/mfussenegger/nvim-jdtls.git" },
 	{ src = "https://github.com/saghen/blink.cmp.git", version = "v1.10.2" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets.git" },
 
@@ -15,29 +16,25 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
 	{ src = "https://github.com/junegunn/fzf.vim.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
+  { src = "https://github.com/folke/trouble.nvim.git"},
 
 	-- documents
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim.git" },
 	{ src = "https://github.com/chomosuke/typst-preview.nvim.git" },
 
   -- colorscheme
-  { src = "https://github.com/EdenEast/nightfox.nvim.git"}
+  { src = "https://github.com/EdenEast/nightfox.nvim.git"},
 })
 
 require("nvim-web-devicons").setup()
 
-require("blink.cmp").setup({
-	keymap = { preset = "default" },
-	sources = { default = { "lsp", "path", "snippets", "buffer" } },
-	fuzzy = { implementation = "lua" },
-})
 
 
 require("mason").setup({
 	PATH = "prepend",
 })
 require("mason-lspconfig").setup({
-	ensure_installed = { "vtsls", "tailwindcss", "pyright" },
+	ensure_installed = { "vtsls", "tailwindcss", "pyright", "jdtls" },
 	automatic_enable = { exclude = { "ts_ls" } },
 })
 
@@ -58,12 +55,62 @@ require("telescope").setup({
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("lazygit")
 
+local oil_util = require("oil.util")
+local orig_get_icon_provider = oil_util.get_icon_provider
+oil_util.get_icon_provider = function(...)
+	local orig = orig_get_icon_provider(...)
+	return function(type, name, conf)
+		local icon, hl = orig(type, name, conf)
+		if type == "directory" and name:match("^_") then
+			hl = "OilDirIconPurple"
+		end
+		return icon, hl
+	end
+end
+
 require("oil").setup({
 	view_options = {
 		show_hidden = true,
 	},
 	delete_to_trash = true,
 
+})
+
+require("trouble").setup({
+	focus = false,
+})
+
+require("blink.cmp").setup({
+  keymap = {
+    preset = "default",
+    ["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
+  },
+
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+    providers = {
+      snippets = {
+        opts = {
+          search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+        },
+      },
+    },
+  },
+
+  fuzzy = {
+    implementation = "rust",
+    prebuilt_binaries = {
+      force_version = "v1.6.0",
+    },
+  },
+
+  completion = {
+    menu = {
+      border = "none",
+    },
+  },
 })
 
 require("typst-preview").setup({
@@ -73,3 +120,4 @@ require("typst-preview").setup({
 
 -- oil bg color
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "OilDirIconPurple", { fg = "#9d79d6" })
