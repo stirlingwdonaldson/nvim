@@ -173,6 +173,51 @@ vim.keymap.set("n", "<leader>lg", "<CMD>LazyGit<CR>", { noremap = true, silent =
 vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { noremap = true, silent = true, desc = "Diagnostics (Trouble)" })
 vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { noremap = true, silent = true, desc = "Buffer Diagnostics (Trouble)" })
 
+-- jupyter notebooks
+local function evaluate_current_jupyter_cell()
+  local current_line = vim.fn.line(".")
+  local first_line = 1
+  local last_line = vim.fn.line("$")
+
+  for line = current_line, 1, -1 do
+    if vim.fn.getline(line):match("^%s*# %%%%") then
+      first_line = line + 1
+      break
+    end
+  end
+
+  for line = current_line + 1, last_line do
+    if vim.fn.getline(line):match("^%s*# %%%%") then
+      last_line = line - 1
+      break
+    end
+  end
+
+  while first_line <= last_line and vim.fn.getline(first_line):match("^%s*$") do
+    first_line = first_line + 1
+  end
+
+  while last_line >= first_line and vim.fn.getline(last_line):match("^%s*$") do
+    last_line = last_line - 1
+  end
+
+  if first_line > last_line then
+    vim.notify("No code in current notebook cell", vim.log.levels.INFO)
+    return
+  end
+
+  vim.fn.MoltenEvaluateRange(first_line, last_line)
+end
+
+vim.keymap.set("n", "<leader>ji", "<cmd>MoltenInit<CR>", { noremap = true, silent = true, desc = "Jupyter init kernel" })
+vim.keymap.set("n", "<leader>jj", evaluate_current_jupyter_cell, { desc = "Jupyter run cell" })
+vim.keymap.set("n", "<leader>jl", "<cmd>MoltenEvaluateLine<CR>", { noremap = true, silent = true, desc = "Jupyter run line" })
+vim.keymap.set("v", "<leader>j", ":<C-u>MoltenEvaluateVisual<CR>gv", { noremap = true, silent = true, desc = "Jupyter run selection" })
+vim.keymap.set("n", "<leader>jr", "<cmd>MoltenReevaluateCell<CR>", { noremap = true, silent = true, desc = "Jupyter rerun cell" })
+vim.keymap.set("n", "<leader>jo", "<cmd>MoltenShowOutput<CR>", { noremap = true, silent = true, desc = "Jupyter show output" })
+vim.keymap.set("n", "<leader>jh", "<cmd>MoltenHideOutput<CR>", { noremap = true, silent = true, desc = "Jupyter hide output" })
+vim.keymap.set("n", "<leader>jd", "<cmd>MoltenDelete<CR>", { noremap = true, silent = true, desc = "Jupyter delete output" })
+
 -- typst
 local function ensure_tmux_pane_zoomed()
   -- Only run tmux logic when Neovim is inside a tmux session.
