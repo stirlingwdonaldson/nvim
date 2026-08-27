@@ -17,6 +17,10 @@
       "rev": "34a564c81f36047f50e593c1656f4580ff75ccca",
       "src": "https://github.com/junegunn/fzf.vim.git"
     },
+    "image.nvim": {
+      "rev": "5c6f29a5069e1f7bd5773ce5907454063b0f125d",
+      "src": "https://github.com/3rd/image.nvim.git"
+    },
     "jupytext.nvim": {
       "rev": "c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b",
       "src": "https://github.com/GCBallesteros/jupytext.nvim.git"

@@ -14,15 +14,8 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope.nvim.git" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim.git" },
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
-	{ src = "https://github.com/junegunn/fzf.vim.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
   { src = "https://github.com/folke/trouble.nvim.git"},
-
-	-- documents
-	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim.git" },
-	{ src = "https://github.com/chomosuke/typst-preview.nvim.git" },
-	{ src = "https://github.com/GCBallesteros/jupytext.nvim.git" },
-	{ src = "https://github.com/benlubas/molten-nvim.git" },
 
   -- colorscheme
   { src = "https://github.com/EdenEast/nightfox.nvim.git"},
@@ -92,13 +85,6 @@ require("blink.cmp").setup({
 
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
-    providers = {
-      snippets = {
-        opts = {
-          search_paths = { vim.fn.stdpath("config") .. "/snippets" },
-        },
-      },
-    },
   },
 
   fuzzy = {
@@ -114,22 +100,6 @@ require("blink.cmp").setup({
     },
   },
 })
-
-require("typst-preview").setup({
-	-- Route preview URL through our script so we can manage window layout.
-	open_cmd = vim.fn.stdpath("config") .. "/scripts/typst_preview_layout.sh '%s'",
-})
-
-require("jupytext").setup({
-	style = "hydrogen",
-})
-
-vim.g.molten_auto_open_output = false
-vim.g.molten_output_win_border = "rounded"
-vim.g.molten_output_win_max_height = 20
-vim.g.molten_virt_text_output = true
-vim.g.molten_virt_text_max_lines = 12
-vim.g.molten_wrap_output = true
 
 -- oil bg color
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
