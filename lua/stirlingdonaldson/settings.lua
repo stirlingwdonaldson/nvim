@@ -16,6 +16,9 @@ vim.opt.scrolloff = 8 -- Minimal number of screen lines to keep above/below curs
 vim.opt.signcolumn = "yes" -- Always show signcolumn
 vim.opt.fillchars = { eob = " " }
 vim.o.background = "dark" -- or "light"
+vim.diagnostic.config({
+  virtual_text = true,
+})
 
 vim.o.cmdheight = 0
 
