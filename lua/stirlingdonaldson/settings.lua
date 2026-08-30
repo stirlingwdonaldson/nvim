@@ -16,9 +16,6 @@ vim.opt.scrolloff = 8 -- Minimal number of screen lines to keep above/below curs
 vim.opt.signcolumn = "yes" -- Always show signcolumn
 vim.opt.fillchars = { eob = " " }
 vim.o.background = "dark" -- or "light"
-vim.diagnostic.config({
-  virtual_text = true,
-})
 
 vim.o.cmdheight = 0
 
@@ -26,11 +23,9 @@ vim.o.cmdheight = 0
 vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
 
 vim.diagnostic.config({
-  virtual_text = {
-    spacing = 2,
-    source = "if_many",
-    prefix = "●",
-  },
+  -- virtual_text is off because tiny-inline-diagnostic.nvim (see plugins.lua)
+  -- renders inline diagnostics itself; leaving both on would draw them twice.
+  virtual_text = false,
   signs = true,
   underline = true,
   update_in_insert = false,
