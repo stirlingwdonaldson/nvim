@@ -122,6 +122,9 @@ require("mason").setup({
 	PATH = "prepend",
 })
 
+-- Advertise completion capabilities to every language server.
+vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities() })
+
 vim.lsp.config("clangd", {
 	cmd = {
 		"clangd",
@@ -143,8 +146,9 @@ vim.lsp.config("tinymist", {
 })
 
 require("mason-lspconfig").setup({
-	ensure_installed = { "vtsls", "tailwindcss", "pyright", "jdtls", "clangd", "cmake", "tinymist", "lua_ls", "gopls", "rust_analyzer", "bashls", "jsonls", "yamlls", "html", "cssls", "dockerls" },
-	automatic_enable = { exclude = { "ts_ls" } },
+	ensure_installed = vim.env.NVIM_INSTALLING_TOOLS and {} or require("stirlingdonaldson.languages").servers,
+	-- Java is started by ftplugin/java.lua with its own workspace settings.
+	automatic_enable = { exclude = { "ts_ls", "jdtls" } },
 })
 
 -- prolog_ls talks to SWI-Prolog's own `lsp_server` pack (not Mason-managed -
@@ -228,7 +232,7 @@ require("blink.cmp").setup({
 	fuzzy = {
 		implementation = "rust",
 		prebuilt_binaries = {
-			force_version = "v1.6.0",
+			force_version = "v1.10.2",
 		},
 	},
 
@@ -239,23 +243,17 @@ require("blink.cmp").setup({
 	},
 })
 
--- treesitter (main branch): the installer lives in a submodule, not on
--- the top-level require("nvim-treesitter") table. This only installs the
--- parsers - it doesn't auto-enable core syntax highlighting, which suits
--- us: render-markdown.nvim does its own rendering straight off the parser
--- and doesn't need core's treesitter highlighting turned on. Installation
--- happens the first time Neovim starts (a one-time background job -
--- restart Neovim once if rendering doesn't appear on the very first run).
-require("nvim-treesitter.install").ensure_installed("bash", "c", "css", "dockerfile", "go", "html", "javascript", "json", "lua", "markdown", "markdown_inline", "python", "rust", "toml", "tsx", "typescript", "typst", "vim", "vimdoc", "yaml")
+-- The pinned nvim-treesitter version uses the legacy installer API.
+-- Parsers are installed asynchronously if they are missing.
+require("nvim-treesitter.install").ensure_installed(require("stirlingdonaldson.languages").parsers)
 
--- Typst does want core treesitter highlighting (much richer than the
--- built-in regex syntax), so switch it on for typst buffers. pcall covers the first
--- start, before the parser has finished installing.
+-- Let Neovim select the parser for each filetype. Missing parsers simply use
+-- the built-in syntax until the parser is installed.
 vim.api.nvim_create_autocmd("FileType", {
-	desc = "Treesitter highlighting for typst",
+	desc = "Treesitter highlighting for supported filetypes",
 	pattern = { "sh", "c", "css", "dockerfile", "go", "html", "javascript", "json", "lua", "markdown", "python", "rust", "toml", "typescript", "typescriptreact", "typst", "vim", "yaml" },
 	callback = function(args)
-		pcall(vim.treesitter.start, args.buf, "typst")
+		pcall(vim.treesitter.start, args.buf)
 	end,
 })
 
@@ -317,10 +315,8 @@ require("actions-preview").setup({})
 -- conform runs dedicated formatter CLIs (install them via :Mason or your
 -- system package manager, e.g. `brew install stylua prettier`).
 require("conform").setup({
-	-- Wraps SWI-Prolog's own formatter (ships in the `lsp_server` pack:
-	-- `swipl pack install lsp_server`). Untested against conform's
-	-- stdout-capture assumption - try `:ConformInfo` and a manual `:Format`
-	-- on a .pl buffer before trusting format-on-save with it.
+	-- SWI-Prolog's formatter edits its argument in place. Conform writes the
+	-- buffer to a temporary file first and reads the formatted file back.
 	formatters = {
 		["clang-format"] = {
 			-- Prefer a project's .clang-format when it exists, but default new C++
@@ -330,6 +326,7 @@ require("conform").setup({
 		swipl_formatter = {
 			command = "swipl",
 			args = { "formatter", "$FILENAME" },
+			stdin = false,
 		},
 	},
 	formatters_by_ft = {

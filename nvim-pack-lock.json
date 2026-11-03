@@ -9,7 +9,7 @@
       "src": "https://github.com/stevearc/aerial.nvim.git"
     },
     "blink.cmp": {
-      "rev": "456d38d1cd3743926f329204c2340f3e7840aad6",
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp.git",
       "version": "'v1.10.2'"
     },
@@ -37,10 +37,6 @@
       "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
       "src": "https://github.com/ibhagwan/fzf-lua.git"
     },
-    "fzf.vim": {
-      "rev": "34a564c81f36047f50e593c1656f4580ff75ccca",
-      "src": "https://github.com/junegunn/fzf.vim.git"
-    },
     "gen.nvim": {
       "rev": "c8e1f574d4a3a839dde73a87bdc319a62ee1e559",
       "src": "https://github.com/David-Kunz/gen.nvim.git"
@@ -57,17 +53,9 @@
       "rev": "bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc",
       "src": "https://github.com/DNLHC/glance.nvim.git"
     },
-    "image.nvim": {
-      "rev": "5c6f29a5069e1f7bd5773ce5907454063b0f125d",
-      "src": "https://github.com/3rd/image.nvim.git"
-    },
     "indent-blankline.nvim": {
       "rev": "f1e186e44d3b7f9ae918008e2c28ce37c6023d2d",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim.git"
-    },
-    "jupytext.nvim": {
-      "rev": "c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b",
-      "src": "https://github.com/GCBallesteros/jupytext.nvim.git"
     },
     "lazygit.nvim": {
       "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
@@ -84,14 +72,6 @@
     "mason.nvim": {
       "rev": "b03fb0f20bc1d43daf558cda981a2be22e73ac42",
       "src": "https://github.com/mason-org/mason.nvim.git"
-    },
-    "mini.nvim": {
-      "rev": "2431902e78b76f435542d1e606f08475360068ca",
-      "src": "https://github.com/nvim-mini/mini.nvim.git"
-    },
-    "molten-nvim": {
-      "rev": "bedea63819c618e007e7c40059fc6e72d598c8df",
-      "src": "https://github.com/benlubas/molten-nvim.git"
     },
     "neo-tree.nvim": {
       "rev": "84c75e7a7e443586f60508d12fc50f90d9aee14e",
@@ -180,10 +160,6 @@
     "ts-comments.nvim": {
       "rev": "a59d6092213447450191122c9346f309161504cb",
       "src": "https://github.com/folke/ts-comments.nvim.git"
-    },
-    "typescript-tools.nvim": {
-      "rev": "c2f5910074103705661e9651aa841e0d7eea9932",
-      "src": "https://github.com/pmizio/typescript-tools.nvim"
     },
     "typst-preview.nvim": {
       "rev": "87db18b8d19c8b0eed399f52e4c527ce5afe4817",
