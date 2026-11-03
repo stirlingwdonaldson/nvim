@@ -13,9 +13,21 @@
       "src": "https://github.com/saghen/blink.cmp.git",
       "version": "'v1.10.2'"
     },
+    "bufferline.nvim": {
+      "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
+      "src": "https://github.com/akinsho/bufferline.nvim.git"
+    },
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim.git"
+    },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim.git"
+    },
+    "flash.nvim": {
+      "rev": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a",
+      "src": "https://github.com/folke/flash.nvim.git"
     },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
@@ -33,6 +45,14 @@
       "rev": "c8e1f574d4a3a839dde73a87bdc319a62ee1e559",
       "src": "https://github.com/David-Kunz/gen.nvim.git"
     },
+    "git-blame.nvim": {
+      "rev": "5c536e2d4134d064aa3f41575280bc8a2a0e03d7",
+      "src": "https://github.com/f-person/git-blame.nvim.git"
+    },
+    "gitsigns.nvim": {
+      "rev": "4bcd99167c265f135886b282baad77afe06206b2",
+      "src": "https://github.com/lewis6991/gitsigns.nvim.git"
+    },
     "glance.nvim": {
       "rev": "bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc",
       "src": "https://github.com/DNLHC/glance.nvim.git"
@@ -41,6 +61,10 @@
       "rev": "5c6f29a5069e1f7bd5773ce5907454063b0f125d",
       "src": "https://github.com/3rd/image.nvim.git"
     },
+    "indent-blankline.nvim": {
+      "rev": "f1e186e44d3b7f9ae918008e2c28ce37c6023d2d",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim.git"
+    },
     "jupytext.nvim": {
       "rev": "c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b",
       "src": "https://github.com/GCBallesteros/jupytext.nvim.git"
@@ -48,6 +72,10 @@
     "lazygit.nvim": {
       "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
       "src": "https://github.com/kdheepak/lazygit.nvim.git"
+    },
+    "lualine.nvim": {
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
+      "src": "https://github.com/nvim-lualine/lualine.nvim.git"
     },
     "mason-lspconfig.nvim": {
       "rev": "63a3c6a80538de1003373a619e29aeda27809ad3",
@@ -81,6 +109,10 @@
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
+    "nvim-autopairs": {
+      "rev": "3172f40c16563db871a58f20d205c710ad782311",
+      "src": "https://github.com/windwp/nvim-autopairs.git"
+    },
     "nvim-jdtls": {
       "rev": "77ccaeb422f8c81b647605da5ddb4a7f725cda90",
       "src": "https://github.com/mfussenegger/nvim-jdtls.git"
@@ -93,6 +125,10 @@
       "rev": "c588db330592fa477a70d2fee6ba20a57194bdc3",
       "src": "https://github.com/neovim/nvim-lspconfig.git"
     },
+    "nvim-surround": {
+      "rev": "8b47db616ef658b8fc27e61db2896aa2f40134de",
+      "src": "https://github.com/kylechui/nvim-surround.git"
+    },
     "nvim-treesitter": {
       "rev": "cf12346a3414fa1b06af75c79faebe7f76df080a",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter.git"
@@ -104,6 +140,10 @@
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim.git"
+    },
+    "persistence.nvim": {
+      "rev": "b20b2a7887bd39c1a356980b45e03250f3dce49c",
+      "src": "https://github.com/folke/persistence.nvim.git"
     },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
@@ -125,9 +165,21 @@
       "rev": "6264451f14119d63a52580e5198d6baf8518b0b2",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim.git"
     },
+    "todo-comments.nvim": {
+      "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
+      "src": "https://github.com/folke/todo-comments.nvim.git"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim.git"
+    },
     "trouble.nvim": {
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim.git"
+    },
+    "ts-comments.nvim": {
+      "rev": "a59d6092213447450191122c9346f309161504cb",
+      "src": "https://github.com/folke/ts-comments.nvim.git"
     },
     "typescript-tools.nvim": {
       "rev": "c2f5910074103705661e9651aa841e0d7eea9932",

@@ -36,7 +36,7 @@ local cmd = {
   "-jar",
   launcher,
   "-configuration",
-  mason_dir .. "/config_mac",
+  mason_dir .. (vim.fn.has("mac") == 1 and "/config_mac" or "/config_linux"),
   "-data",
   workspace_dir,
 }
