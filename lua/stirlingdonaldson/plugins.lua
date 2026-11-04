@@ -201,7 +201,18 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "Treesitter highlighting for supported filetypes",
 	pattern = { "sh", "c", "css", "dockerfile", "go", "html", "javascript", "json", "lua", "markdown", "python", "rust", "toml", "typescript", "typescriptreact", "vim", "yaml" },
 	callback = function(args)
-		pcall(vim.treesitter.start, args.buf)
+		local function start_highlighting()
+			if vim.api.nvim_buf_is_valid(args.buf) and vim.api.nvim_buf_is_loaded(args.buf)
+				and vim.bo[args.buf].filetype == args.match then
+				pcall(vim.treesitter.start, args.buf)
+			end
+		end
+		-- Let the first TypeScript buffer appear before initializing its parser.
+		if vim.v.vim_did_enter == 0 and (args.match == "typescript" or args.match == "typescriptreact") then
+			vim.defer_fn(start_highlighting, 50)
+		else
+			start_highlighting()
+		end
 	end,
 })
 

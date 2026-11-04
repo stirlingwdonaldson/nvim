@@ -20,7 +20,7 @@ local function check()
     local buf = vim.api.nvim_create_buf(true, false)
     vim.api.nvim_set_current_buf(buf)
     vim.api.nvim_set_option_value("filetype", filetype, { buf = buf })
-    assert(vim.treesitter.highlighter.active[buf], "highlighting missing for " .. filetype)
+    assert(vim.wait(2000, function() return vim.treesitter.highlighter.active[buf] ~= nil end, 20), "highlighting missing for " .. filetype)
     assert(vim.treesitter.get_parser(buf):lang() == language, "wrong parser for " .. filetype)
     vim.api.nvim_buf_delete(buf, { force = true })
   end
