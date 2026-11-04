@@ -43,7 +43,7 @@ vim.pack.add({
 	-- general dependencies
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim.git" },
-	{ src = "https://github.com/MunifTanjim/nui.nvim.git" }, -- required by neo-tree and noice
+	{ src = "https://github.com/MunifTanjim/nui.nvim.git" }, -- required by noice and actions-preview
 
 	-- lsp plugins
 	{ src = "https://github.com/mason-org/mason.nvim.git" },
@@ -76,11 +76,8 @@ vim.pack.add({
 	-- diagnostics rendered inline, next to the offending code
 	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim.git" },
 
-	{ src = "https://github.com/nvim-telescope/telescope.nvim.git" },
-	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim.git" },
 	{ src = "https://github.com/ibhagwan/fzf-lua.git" },
 	{ src = "https://github.com/stevearc/oil.nvim.git" },
-	{ src = "https://github.com/nvim-neo-tree/neo-tree.nvim.git" },
 	{ src = "https://github.com/stevearc/aerial.nvim.git" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim.git" },
 	{ src = "https://github.com/folke/trouble.nvim.git" },
@@ -95,12 +92,6 @@ vim.pack.add({
 	-- colorscheme
 	{ src = "https://github.com/EdenEast/nightfox.nvim.git" },
 
-	-- git blame
-	{ src = "https://github.com/f-person/git-blame.nvim.git" },
-
-	-- live browser preview of typst files (driven by <leader>t)
-	{ src = "https://github.com/chomosuke/typst-preview.nvim.git" },
-
 	-- Features from the VM configuration.
 	{ src = "https://github.com/lewis6991/gitsigns.nvim.git" },
 	{ src = "https://github.com/windwp/nvim-autopairs.git" },
@@ -109,7 +100,6 @@ vim.pack.add({
 	{ src = "https://github.com/folke/persistence.nvim.git" },
 	{ src = "https://github.com/folke/flash.nvim.git" },
 	{ src = "https://github.com/folke/todo-comments.nvim.git" },
-	{ src = "https://github.com/sindrets/diffview.nvim.git" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim.git" },
 	{ src = "https://github.com/akinsho/bufferline.nvim.git" },
 	{ src = "https://github.com/lukas-reineke/indent-blankline.nvim.git" },
@@ -136,17 +126,7 @@ vim.lsp.config("clangd", {
 	},
 })
 
--- tinymist: typst language server (completion, diagnostics, hover, go to
--- definition). Formatting goes through the LSP using typstyle, which conform
--- falls back to on save since there's no typst CLI formatter configured.
-vim.lsp.config("tinymist", {
-	settings = {
-		formatterMode = "typstyle",
-	},
-})
-
 require("mason-lspconfig").setup({
-	ensure_installed = vim.env.NVIM_INSTALLING_TOOLS and {} or require("stirlingdonaldson.languages").servers,
 	-- Java is started by ftplugin/java.lua with its own workspace settings.
 	automatic_enable = { exclude = { "ts_ls", "jdtls" } },
 })
@@ -156,28 +136,6 @@ require("mason-lspconfig").setup({
 -- `?- pack_install(lsp_server).`). nvim-lspconfig ships the client config,
 -- so enabling it is enough once the pack is installed and swipl is on PATH.
 vim.lsp.enable("prolog_ls")
-
-require("telescope").setup({
-	extensions = {
-		fzf = {
-			fuzzy = true, -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true, -- override the file sorter
-			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
-		},
-	},
-})
--- To get fzf loaded and working with telescope, you need to call
--- load_extension, somewhere after setup function:
--- fzf-native needs a separate `make` on each platform; Telescope still works
--- with its built-in sorter until that optional native extension is built.
-pcall(require("telescope").load_extension, "fzf")
-require("telescope").load_extension("lazygit")
-
--- fzf-lua is a second, faster fuzzy finder (backed by the real fzf binary)
--- kept alongside telescope rather than replacing it - see <leader>z keymaps.
-require("fzf-lua").setup({})
 
 local oil_util = require("oil.util")
 local orig_get_icon_provider = oil_util.get_icon_provider
@@ -197,12 +155,6 @@ require("oil").setup({
 		show_hidden = true,
 	},
 	delete_to_trash = true,
-})
-
--- neo-tree is a sidebar file tree, complementary to oil's buffer-based
--- browsing - handy for keeping a project's shape visible while you work.
-require("neo-tree").setup({
-	close_if_last_window = true,
 })
 
 -- aerial gives a jump-to-symbol outline, useful for orienting yourself in
@@ -243,15 +195,11 @@ require("blink.cmp").setup({
 	},
 })
 
--- The pinned nvim-treesitter version uses the legacy installer API.
--- Parsers are installed asynchronously if they are missing.
-require("nvim-treesitter.install").ensure_installed(require("stirlingdonaldson.languages").parsers)
-
 -- Let Neovim select the parser for each filetype. Missing parsers simply use
 -- the built-in syntax until the parser is installed.
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Treesitter highlighting for supported filetypes",
-	pattern = { "sh", "c", "css", "dockerfile", "go", "html", "javascript", "json", "lua", "markdown", "python", "rust", "toml", "typescript", "typescriptreact", "typst", "vim", "yaml" },
+	pattern = { "sh", "c", "css", "dockerfile", "go", "html", "javascript", "json", "lua", "markdown", "python", "rust", "toml", "typescript", "typescriptreact", "vim", "yaml" },
 	callback = function(args)
 		pcall(vim.treesitter.start, args.buf)
 	end,
@@ -310,7 +258,7 @@ require("glance").setup({})
 
 -- actions-preview shows a diff of what a code action will actually do
 -- before you apply it (used by the <leader>ca keymap).
-require("actions-preview").setup({})
+require("actions-preview").setup({ backend = "nui" })
 
 -- conform runs dedicated formatter CLIs (install them via :Mason or your
 -- system package manager, e.g. `brew install stylua prettier`).
@@ -429,19 +377,7 @@ require("gen").prompts["Command_Lookup"] = {
 	replace = false,
 }
 
--- typst-preview runs tinymist and serves a live preview to the browser.
--- On macOS, open_cmd opens it in a Safari window on the right half of the
--- screen (see stirlingdonaldson/typst_preview.lua).
-require("typst-preview").setup({
-	open_cmd = require("stirlingdonaldson.typst_preview").open_cmd(),
-})
-
-require("gitblame").setup({
-	--Note how the `gitblame_` prefix is omitted in `setup`
-	enabled = false,
-})
-
-require("stirlingdonaldson.vm_features").setup()
+require("stirlingdonaldson.editor").setup()
 
 -- oil bg color
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })

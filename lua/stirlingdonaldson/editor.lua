@@ -1,4 +1,4 @@
--- Features retained from the VM's previous Neovim configuration.
+-- Shared editing, navigation, and Git features.
 local M = {}
 
 function M.setup()

@@ -35,9 +35,6 @@ map({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Fl
 map({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash treesitter" })
 map("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Next TODO" })
 map("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Previous TODO" })
-map("n", "<leader>dv", "<cmd>DiffviewOpen<CR>", { desc = "Open diffview" })
-map("n", "<leader>gh", "<cmd>DiffviewFileHistory<CR>", { desc = "File history" })
-map("n", "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", { desc = "Current file history" })
 map("n", "<leader>xL", "<cmd>Trouble loclist toggle<CR>")
 map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>")
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
@@ -51,49 +48,24 @@ map("n", "<leader>uh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hi
 vim.keymap.set("n", "q", "<cmd>close<CR>")
 vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { noremap = true, silent = true, desc = "File explorer (Oil)" })
 
--- neo-tree (sidebar file tree, better for seeing a whole project's shape)
-vim.keymap.set(
-	"n",
-	"<leader>E",
-	"<cmd>Neotree toggle<CR>",
-	{ noremap = true, silent = true, desc = "File tree (Neo-tree)" }
-)
-
--- telescope
-local telescope_builtin = require("telescope.builtin")
-map("n", "<leader>fb", telescope_builtin.buffers, { desc = "Buffers" })
-map("n", "<leader>fh", telescope_builtin.help_tags, { desc = "Help tags" })
-map("n", "<leader>fr", telescope_builtin.oldfiles, { desc = "Recent files" })
-map("n", "<leader>gc", telescope_builtin.git_commits, { desc = "Git commits" })
-map("n", "<leader>gs", telescope_builtin.git_status, { desc = "Git status" })
-local telescope_large_layout = {
-	layout_config = {
-		width = 0.9,
-		height = 0.9,
-	},
-}
-
-vim.keymap.set("n", "<leader>f", function()
-	telescope_builtin.find_files(telescope_large_layout)
-end, { desc = "Find files" })
-vim.keymap.set("n", "<leader>F", function()
-	telescope_builtin.live_grep(telescope_large_layout)
-end, { desc = "Live grep" })
-
--- Telescope's built-in LSP pickers: these list every matching location
--- (e.g. an interface plus all of its implementations) instead of jumping
--- straight to the first/only result.
-vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions, { desc = "Goto definition (list)" })
-vim.keymap.set("n", "gD", telescope_builtin.lsp_type_definitions, { desc = "Goto type definition (list)" })
-vim.keymap.set("n", "gi", telescope_builtin.lsp_implementations, { desc = "Goto implementation (list)" })
-vim.keymap.set("n", "gr", telescope_builtin.lsp_references, { desc = "Goto references (list)" })
-
--- fzf-lua: a second, faster fuzzy finder kept alongside telescope.
--- Grouped under its own <leader>z prefix so it doesn't collide with the
--- telescope bindings above.
-vim.keymap.set("n", "<leader>zf", "<cmd>FzfLua files<CR>", { desc = "Files (fzf-lua)" })
-vim.keymap.set("n", "<leader>zg", "<cmd>FzfLua live_grep<CR>", { desc = "Live grep (fzf-lua)" })
-vim.keymap.set("n", "<leader>zb", "<cmd>FzfLua buffers<CR>", { desc = "Buffers (fzf-lua)" })
+-- fzf-lua pickers preserve the shared search and navigation shortcuts.
+local function picker(name)
+  return function() require("fzf-lua")[name]() end
+end
+map("n", "<leader>f", picker("files"), { desc = "Find files" })
+map("n", "<leader>F", picker("live_grep"), { desc = "Live grep" })
+map("n", "<leader>fb", picker("buffers"), { desc = "Buffers" })
+map("n", "<leader>fh", picker("helptags"), { desc = "Help tags" })
+map("n", "<leader>fr", picker("oldfiles"), { desc = "Recent files" })
+map("n", "<leader>gc", picker("git_commits"), { desc = "Git commits" })
+map("n", "<leader>gs", picker("git_status"), { desc = "Git status" })
+map("n", "gd", picker("lsp_definitions"), { desc = "Goto definition (list)" })
+map("n", "gD", picker("lsp_typedefs"), { desc = "Goto type definition (list)" })
+map("n", "gi", picker("lsp_implementations"), { desc = "Goto implementation (list)" })
+map("n", "gr", picker("lsp_references"), { desc = "Goto references (list)" })
+map("n", "<leader>zf", picker("files"), { desc = "Files" })
+map("n", "<leader>zg", picker("live_grep"), { desc = "Live grep" })
+map("n", "<leader>zb", picker("buffers"), { desc = "Buffers" })
 
 -- glance: peek definitions/references/implementations in a floating
 -- window without leaving your current cursor position.
@@ -105,8 +77,8 @@ vim.keymap.set("n", "<leader>gi", "<cmd>Glance implementations<CR>", { desc = "G
 -- outline / symbol navigation - handy for jumping around large,
 -- namespace-heavy files (e.g. a big Java class).
 vim.keymap.set("n", "<leader>oo", "<cmd>AerialToggle<CR>", { desc = "Toggle symbol outline" })
-vim.keymap.set("n", "<leader>of", telescope_builtin.lsp_document_symbols, { desc = "Document symbols" })
-vim.keymap.set("n", "<leader>ow", telescope_builtin.lsp_dynamic_workspace_symbols, { desc = "Workspace symbols" })
+vim.keymap.set("n", "<leader>of", picker("lsp_document_symbols"), { desc = "Document symbols" })
+vim.keymap.set("n", "<leader>ow", picker("lsp_live_workspace_symbols"), { desc = "Workspace symbols" })
 
 -- formatting: conform runs a dedicated formatter CLI for the filetype,
 -- falling back to the LSP's own formatter if none is configured.
@@ -146,17 +118,10 @@ vim.keymap.set("n", "<leader>ai", "<cmd>Gen Command_Lookup<CR>", { desc = "Ask f
 -- render-markdown: flip between the rendered view and raw markdown text.
 vim.keymap.set("n", "<leader>mr", "<cmd>RenderMarkdown toggle<CR>", { desc = "Toggle rendered markdown" })
 
--- typst: live preview, terminal on the left half of the screen and the
--- browser preview on the right. Press again to stop and restore.
-vim.keymap.set("n", "<leader>t", function()
-	require("stirlingdonaldson.typst_preview").toggle()
-end, { desc = "Typst preview (split screen)" })
-
 -- which-key group labels: names the prefixes above so the popup shows
 -- "Find", "Glance", etc. instead of a raw, unlabelled list of keys.
 require("which-key").add({
 	{ "<leader>e", desc = "File explorer (Oil)" },
-	{ "<leader>E", desc = "File tree (Neo-tree)" },
 	{ "<leader>f", desc = "Find files" },
 	{ "<leader>F", desc = "Live grep" },
 	{ "<leader>g", group = "Glance (peek)" },
@@ -167,7 +132,6 @@ require("which-key").add({
 	{ "<leader>Q", desc = "Quit all (force)" },
 	{ "<leader>ai", desc = "Ask for a command (local LLM)" },
 	{ "<leader>m", group = "Markdown" },
-	{ "<leader>t", desc = "Typst preview (split screen)" },
 	{ "<leader>w", desc = "Save file" },
 	{ "<leader>x", group = "Diagnostics (Trouble)" },
 	{ "<leader>z", group = "Fuzzy find (fzf-lua)" },

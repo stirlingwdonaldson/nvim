@@ -3,7 +3,8 @@ local function check()
   assert(vim.g.mapleader == " ", "leader should be Space")
   assert(vim.fn.maparg("<Space>f", "n") ~= "", "file finder mapping missing")
   assert(vim.fn.maparg("<Space>e", "n") ~= "", "Oil mapping missing")
-  assert(require("telescope").extensions.fzf, "Telescope native fzf extension missing")
+  assert(not package.loaded["fzf-lua"], "fzf-lua loaded before first use")
+  assert(type(require("fzf-lua").files) == "function", "fzf-lua picker missing")
   assert(vim.wait(20000, function() return require("blink.cmp.fuzzy").implementation_type == "rust" end, 100), "blink native matcher did not load")
   assert(vim.lsp.config["*"].capabilities.textDocument.completion.completionItem.snippetSupport, "completion capabilities missing")
   for _, language in ipairs(require("stirlingdonaldson.languages").parsers) do
@@ -15,7 +16,7 @@ local function check()
   for _, name in ipairs(require("stirlingdonaldson.languages").mason_packages) do
     assert(registry.get_package(name):is_installed(), "Mason package missing: " .. name)
   end
-  for filetype, language in pairs({ lua = "lua", python = "python", typescript = "typescript", typst = "typst" }) do
+  for filetype, language in pairs({ lua = "lua", python = "python", typescript = "typescript" }) do
     local buf = vim.api.nvim_create_buf(true, false)
     vim.api.nvim_set_current_buf(buf)
     vim.api.nvim_set_option_value("filetype", filetype, { buf = buf })

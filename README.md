@@ -3,12 +3,9 @@
 The Mac and VM use the same configuration and plugin lockfile through the
 parent dotfiles repository. Neovim 0.12 or newer is required. Run
 `./scripts/install-tools.sh` after installing the system prerequisites below;
-it installs missing Mason packages and Tree-sitter parsers and builds
-Telescope's native fzf extension. `tests/smoke.lua` checks key mappings,
-parsers, native completion, formatters, and safe Prolog formatting.
-`tests/lsp.lua` starts Python, Prolog, CMake and Java language servers in a
-temporary project. `tests/plugins.lua` opens the main navigation interfaces,
-and `tests/typst.lua` starts a preview without opening a browser.
+it installs missing Mason packages and Tree-sitter parsers. Run the smoke
+check below after setup or changes. Tools are installed explicitly rather than
+on every Neovim startup.
 
 ## System prerequisites
 
@@ -27,17 +24,13 @@ update or reinstall that Mason package.
 
 For the optional `gen.nvim` command lookup, install Ollama and pull
 `qwen2.5-coder:1.5b` on each machine. The plugin starts a local Ollama server
-when invoked. Typst preview's automatic Safari/window arrangement is macOS
-only; Linux preview opening depends on the local display and browser setup.
+when invoked.
 
 ## Verify
 
 ```sh
 ./scripts/install-tools.sh
 nvim --headless '+luafile tests/smoke.lua' +qa
-nvim --headless '+luafile tests/lsp.lua' +qa
-nvim --headless '+luafile tests/plugins.lua' +qa
-nvim --headless '+luafile tests/typst.lua' +qa
 ```
 
 Plugin revisions are locked in `nvim-pack-lock.json`; use Neovim's

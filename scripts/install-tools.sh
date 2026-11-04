@@ -22,4 +22,3 @@ if ! "$cmake_lsp" --help >/dev/null 2>&1; then
   "$nvim_data/mason/packages/cmake-language-server/venv/bin/python" -m pip install 'pygls==1.3.1'
   "$cmake_lsp" --help >/dev/null
 fi
-make -C "$nvim_data/site/pack/core/opt/telescope-fzf-native.nvim"
