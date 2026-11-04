@@ -170,6 +170,8 @@ require("trouble").setup({
 })
 
 require("blink.cmp").setup({
+	-- Blink command-line completion crashes Neovim 0.12 on the VM.
+	cmdline = { enabled = false },
 	keymap = {
 		preset = "default",
 		["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
